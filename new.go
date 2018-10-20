@@ -13,7 +13,6 @@ import (
 func main() {
 
 	color.Red("this is a test")
-	os.Exit(1)
 	app := cli.NewApp()
 	app.Name = "new"
 	app.Usage = "fight the loneliness!"
