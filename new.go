@@ -14,12 +14,16 @@ func main() {
 
 	color.Red("this is a test")
 	app := cli.NewApp()
-	app.Name = "new"
+	app.Name = APP_NAME
+	// app.Author = APP_AUTHOR
+	// app.Email = APP_EMAIL
+	// app.Description = APP_DESCRIPTION
 	app.Usage = "fight the loneliness!"
 	app.Action = func(c *cli.Context) error {
 		fmt.Println("Hello friend!")
 		return nil
 	}
+	app.Version = APP_VERSION
 	app.Flags = []cli.Flag{
 		cli.StringFlag{
 			Name:  "type,t",
@@ -30,6 +34,18 @@ func main() {
 			Name:  "a,b",
 			Value: "main",
 			Usage: "work space of todo list",
+		},
+	}
+	app.Commands = []cli.Command{
+		{
+			Name:      "list",
+			Aliases:   []string{"l"},
+			Usage:     "a",
+			UsageText: "b",
+			Action: func(c *cli.Context) error {
+				fmt.Println("hello", c.Args().First())
+				return nil
+			},
 		},
 	}
 	err := app.Run(os.Args)
