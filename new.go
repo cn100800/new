@@ -2,14 +2,48 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"os"
+
+	"github.com/fatih/color"
 	"github.com/go-ozzo/ozzo-config"
+	"github.com/urfave/cli"
 )
 
 func main() {
 
-	var hello = `woaini
+	color.Red("this is a test")
+	os.Exit(1)
+	app := cli.NewApp()
+	app.Name = "new"
+	app.Usage = "fight the loneliness!"
+	app.Action = func(c *cli.Context) error {
+		fmt.Println("Hello friend!")
+		return nil
+	}
+	app.Flags = []cli.Flag{
+		cli.StringFlag{
+			Name:  "type,t",
+			Value: "main",
+			Usage: "work space of todo list",
+		},
+		cli.StringFlag{
+			Name:  "a,b",
+			Value: "main",
+			Usage: "work space of todo list",
+		},
+	}
+	err := app.Run(os.Args)
+	if err != nil {
+		log.Fatal(err)
+	}
+	os.Exit(0)
+
+	var hello = `woain
 woaini
 `
+
+	fmt.Println(hello)
 	fmt.Println(hello)
 
 	// 创建一个新的 Config 对象
