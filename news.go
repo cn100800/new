@@ -12,12 +12,16 @@ import (
 
 func main() {
 
+	//发送邮件
+	s := NewCnMail()
+	s.Setup()
+	s.SendMail("hello")
+
+	os.Exit(0)
 	color.Red("this is a test")
 	app := cli.NewApp()
 	app.Name = APP_NAME
-	// app.Author = APP_AUTHOR
-	// app.Email = APP_EMAIL
-	// app.Description = APP_DESCRIPTION
+
 	app.Usage = "fight the loneliness!"
 	app.Action = func(c *cli.Context) error {
 		fmt.Println("Hello friend!")

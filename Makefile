@@ -4,9 +4,15 @@ BIN_PATH = /usr/local/bin
 
 build:
 	@mkdir -p $(BUILD_DIR)
-	@go build -o $(BUILD_DIR)/$(APP_NAME)
+	@go build -o $(BUILD_DIR)/$(APP_NAME) -ldflags "-s -w"
 	@echo "build success!"
-	@$(BUILD_DIR)/$(APP_NAME) -h
+	@#$(BUILD_DIR)/$(APP_NAME) -h
+
+build-linux:
+	@mkdir -p $(BUILD_DIR)
+	@GOOS=linux GOARCH=amd64 go build -o $(BUILD_DIR)/$(APP_NAME)"_linux" -ldflags "-s -w"
+	@echo "build success!"
+	@#$(BUILD_DIR)/$(APP_NAME) -h
 
 install: build
 	@cp $(BUILD_DIR)/$(APP_NAME) $(BIN_PATH)

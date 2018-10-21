@@ -1,1 +1,5 @@
-# new
+# install
+
+```sh
+scripts/install
+```

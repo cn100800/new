@@ -3,3 +3,4 @@ output/
 release/
 .DS_Store
 go.sum
+config/mail.json
