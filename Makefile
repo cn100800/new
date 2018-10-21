@@ -1,5 +1,5 @@
 BUILD_DIR = output
-APP_NAME = new
+APP_NAME = news
 BIN_PATH = /usr/local/bin
 
 build:
