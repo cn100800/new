@@ -1,33 +1,42 @@
-package main
+package common
 
 import (
 	"fmt"
 	"log"
 	"os"
 
+	"github.com/cn100800/news/cmd"
+	"github.com/cn100800/news/etc"
+
 	"github.com/fatih/color"
 	"github.com/go-ozzo/ozzo-config"
 	"github.com/urfave/cli"
 )
 
-func main() {
+func init() {
 
-	//发送邮件
-	s := NewCnMail()
-	s.Setup()
-	s.SendMail("hello")
+}
 
+func Exec() {
+	h := cmd.NewHome()
+	fmt.Println(h.GetData())
 	os.Exit(0)
+	//发送邮件
+	// s := NewCnMail()
+	// s.Setup()
+	// s.SendMail("hello")
+
+	// os.Exit(0)
 	color.Red("this is a test")
 	app := cli.NewApp()
-	app.Name = APP_NAME
+	app.Name = etc.APP_NAME
 
 	app.Usage = "fight the loneliness!"
 	app.Action = func(c *cli.Context) error {
 		fmt.Println("Hello friend!")
 		return nil
 	}
-	app.Version = APP_VERSION
+	app.Version = etc.APP_VERSION
 	app.Flags = []cli.Flag{
 		cli.StringFlag{
 			Name:  "type,t",

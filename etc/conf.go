@@ -1,4 +1,4 @@
-package main
+package etc
 
 const (
 	APP_NAME        = "news"
