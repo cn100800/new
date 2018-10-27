@@ -42,5 +42,6 @@ fi
 
 git add .
 git commit -m $message
+#git push
 git tag $VERSION
 git push origin $VERSION
