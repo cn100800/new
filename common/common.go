@@ -1,11 +1,12 @@
 package common
 
 import (
+	"flag"
 	"fmt"
 	"log"
 	"os"
 
-	//"github.com/cn100800/news/cmd"
+	"github.com/cn100800/news/cmd"
 	"github.com/cn100800/news/etc"
 
 	"github.com/fatih/color"
@@ -13,19 +14,65 @@ import (
 	"github.com/urfave/cli"
 )
 
-func init() {
+type mailServer struct {
+	host     string
+	port     int
+	username string
+	password string
+	from     string
+	fromName string
+	to       string
+}
 
+func parse() *mailServer {
+	host := flag.String("h", "", "your email host")
+	port := flag.Int("p", 0, "mail server port")
+	username := flag.String("u", "", "your email username")
+	password := flag.String("P", "", "your email password")
+	from := flag.String("f", "", "send from")
+	fromName := flag.String("n", "", "from name")
+	to := flag.String("t", "", "send to")
+	help := flag.Bool("help", false, "help")
+	version := flag.Bool("v", false, "show version info")
+	flag.Parse()
+	if *version {
+		fmt.Println("version:", etc.APP_VERSION)
+		os.Exit(0)
+	}
+	if *help ||
+		*host == "" ||
+		*port == 0 ||
+		*username == "" ||
+		*password == "" ||
+		*from == "" ||
+		*to == "" {
+		flag.PrintDefaults()
+		os.Exit(0)
+	}
+	return &mailServer{
+		host:     *host,
+		port:     *port,
+		username: *username,
+		password: *password,
+		from:     *from,
+		fromName: *fromName,
+		to:       *to,
+	}
 }
 
 func Exec() {
-	// h := &cmd.Home{}
-	// data, _ := h.GetData()
+
+	h := &cmd.Home{}
+	data, _ := h.GetData()
 	// fmt.Println(data)
 	// os.Exit(0)
+
 	//发送邮件
-	// s := NewCnMail()
-	// s.Setup()
-	// s.SendMail("hello")
+	m := parse()
+	s := NewCnMail()
+	s.Setup(m)
+	s.SendMail(data)
+	os.Exit(0)
 
 	// os.Exit(0)
 	color.Red("this is a test")
