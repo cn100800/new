@@ -64,9 +64,10 @@ func Exec() {
 
 	h := &cmd.Home{}
 	data, _ := h.GetData()
-	// fmt.Println(data)
-	// os.Exit(0)
-
+	j := &cmd.Jue{}
+	data += "<hr />"
+	data_2, _ := j.GetData()
+	data += data_2
 	//发送邮件
 	m := parse()
 	s := NewCnMail()
