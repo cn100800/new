@@ -21,8 +21,8 @@ uninstall: install
 	@sudo rm -rf $(BIN_PATH)/$(APP_NAME)
 
 clean:
-	@rm -rf $(BUILD_DIR)/*
-	@echo "clean success!"
+	@rm -vrf $(BUILD_DIR)/*
+	@echo "====>clean success!"
 
 .PHONY: help
 help:

@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/cn100800/news/cmd"
+	//"github.com/cn100800/news/cmd"
 	"github.com/cn100800/news/etc"
 
 	"github.com/fatih/color"
@@ -18,9 +18,10 @@ func init() {
 }
 
 func Exec() {
-	h := cmd.NewHome()
-	fmt.Println(h.GetData())
-	os.Exit(0)
+	// h := &cmd.Home{}
+	// data, _ := h.GetData()
+	// fmt.Println(data)
+	// os.Exit(0)
 	//发送邮件
 	// s := NewCnMail()
 	// s.Setup()
@@ -33,7 +34,8 @@ func Exec() {
 
 	app.Usage = "fight the loneliness!"
 	app.Action = func(c *cli.Context) error {
-		fmt.Println("Hello friend!")
+		host := c.GlobalString("H")
+		fmt.Println(host)
 		return nil
 	}
 	app.Version = etc.APP_VERSION
@@ -44,9 +46,9 @@ func Exec() {
 			Usage: "work space of todo list",
 		},
 		cli.StringFlag{
-			Name:  "a,b",
-			Value: "main",
-			Usage: "work space of todo list",
+			Name:  "H,host",
+			Value: "email host",
+			Usage: "your mail host",
 		},
 	}
 	app.Commands = []cli.Command{
