@@ -29,7 +29,10 @@ echo "===>新版本是:"$VERSION
 make build
 
 mkdir -p $RELEASE_DIR
-tar -cvzf $RELEASE_DIR/$VERSION.tar.gz -C $OUTPUT_DIR .
+echo "===>开发环境打包:"
+tar -cvzf $RELEASE_DIR/$VERSION.tar.gz -C $OUTPUT_DIR news
+echo "===>最终发布包"
+tar -cvzf $RELEASE_DIR/$VERSION"_linux".tar.gz -C $OUTPUT_DIR news_linux
 
 if [[ $1 == "" ]]; then
     read -p "输入提交内容" message
