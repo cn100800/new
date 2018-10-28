@@ -39,12 +39,15 @@ type info struct {
 }
 
 type a struct {
-	//Newsid        int         `json:"newsid"`
-	Title string `json:"title"`
-	// V             string      `json:"v"`
-	Orderdate string `json:"orderdate"`
-	// Postdate      string      `json:"postdate"`
+	Title       string `json:"title"`
+	Orderdate   string `json:"orderdate"`
 	Description string `json:"description"`
+	Isad        bool   `json:"isad"`
+	WapNewsUrl  string `json:"WapNewsUrl"`
+	NewsTips    []Ad   `json:NewsTips`
+	//Newsid        int         `json:"newsid"`
+	// V             string      `json:"v"`
+	// Postdate      string      `json:"postdate"`
 	// Image         string      `json:"image"`
 	// Slink         string      `json:"slink"`
 	// Hitcount      int         `json:"hitcount"`
@@ -57,12 +60,15 @@ type a struct {
 	// Imagelist     interface{} `json:"imagelist"`
 	// C             string      `json:"c"`
 	// Client        string      `json:"client"`
-	Isad bool `json:"isad"`
 	// Sid           int         `json:"sid"`
 	// PostDateStr   string      `json:"PostDateStr"`
 	// HitCountStr   string      `json:"HitCountStr"`
-	WapNewsUrl string `json:"WapNewsUrl"`
 	// NewsTips      interface{} `json:"NewsTips"`
+}
+
+type Ad struct {
+	TipClass string
+	TipName  string
 }
 
 func (h *Home) GetData() (z string, err error) {
@@ -122,6 +128,11 @@ func (h *Home) GetOneData() (string, error) {
 			if now.Format("2006-01-02") != time.Now().In(s).Format("2006-01-02") {
 				continue
 			}
+			if len(v.NewsTips) > 0 {
+				if v.NewsTips[0].TipName == "广告" {
+					continue
+				}
+			}
 			t = strconv.FormatInt(now.Unix(), 10) + "000"
 			z += fmt.Sprintf(HOME_FORMAT, v.WapNewsUrl, v.Title, v.Description)
 			have_more = true
@@ -135,6 +146,7 @@ func (j *Jue) GetOneData() (string, error) {
 	z := ""
 	s, _ := time.LoadLocation("Asia/Shanghai")
 	d, _ := base64.StdEncoding.DecodeString(jueUrl)
+	wap, _ := base64.StdEncoding.DecodeString(jueWap)
 	str := string(d) + juePath
 	before := ""
 	for have_more {
@@ -164,7 +176,7 @@ func (j *Jue) GetOneData() (string, error) {
 			if now.Format("2006-01-02") != time.Now().In(s).Format("2006-01-02") {
 				continue
 			}
-			z += fmt.Sprintf("<h2>%s</h2><br />", v.Content)
+			z += fmt.Sprintf("<a href='%s'><h2>%s</h2></a><br />", string(wap)+v.ObjectId, v.Content)
 			for _, vv := range v.Pictures {
 				z += fmt.Sprintf("<img src='%s' width='600' height='auto'/>", vv)
 			}
@@ -222,6 +234,7 @@ type JueObject struct {
 	Content   string   `json:content`
 	Pictures  []string `json:pictures`
 	CreatedAt string   `json:createdAt`
+	ObjectId  string   `json:objectId`
 }
 
 func NewHome() *Home {
