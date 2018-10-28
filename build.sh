@@ -31,6 +31,7 @@ make build
 mkdir -p $RELEASE_DIR
 echo "===>开发环境打包:"
 tar -cvzf $RELEASE_DIR/$VERSION.tar.gz -C $OUTPUT_DIR news
+shasum -a 256 $RELEASE_DIR/$VERSION.tar.gz
 echo "===>最终发布包"
 tar -cvzf $RELEASE_DIR/$VERSION"_linux".tar.gz -C $OUTPUT_DIR news_linux
 
