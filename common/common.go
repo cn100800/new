@@ -62,14 +62,14 @@ func parse() *mailServer {
 
 func Exec() {
 
+	m := parse()
 	h := &cmd.Home{}
-	data, _ := h.GetData()
 	j := &cmd.Jue{}
+	data, _ := h.GetOneData()
 	data += "<hr />"
-	data_2, _ := j.GetData()
+	data_2, _ := j.GetOneData()
 	data += data_2
 	//发送邮件
-	m := parse()
 	s := NewCnMail()
 	s.Setup(m)
 	s.SendMail(data)
