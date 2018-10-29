@@ -65,16 +65,19 @@ func parse() *mailServer {
 func Exec() {
 
 	m := parse()
+
+	w := &cmd.Weather{}
+	wd, _ := w.GetData()
+
 	h := &cmd.Home{}
 	j := &cmd.Jue{}
-	data, _ := h.GetOneData(*open)
-	data += "<hr />"
-	data_2, _ := j.GetOneData(*open)
-	data += data_2
+	Hdata, _ := h.GetOneData(*open)
+	Jdata, _ := j.GetOneData(*open)
+	content := wd + "<hr />" + Hdata + "<hr />" + Jdata
 	//发送邮件
 	s := NewCnMail()
 	s.Setup(m)
-	s.SendMail(data)
+	s.SendMail(content)
 	os.Exit(0)
 
 	// os.Exit(0)

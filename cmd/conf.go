@@ -1,6 +1,11 @@
 package cmd
 
 var (
+	weatherUrl  = "aHR0cDovL3dpcy5xcS5jb20v"
+	weatherPath = "weather/common"
+)
+
+var (
 	homeUrl  = "aHR0cHM6Ly9tLml0aG9tZS5jb20vYXBpLw=="
 	homePath = "news/newslistpageget"
 )
