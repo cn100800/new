@@ -24,6 +24,8 @@ type mailServer struct {
 	to       string
 }
 
+var open = flag.Bool("o", false, "this is a test")
+
 func parse() *mailServer {
 	host := flag.String("h", "", "your email host")
 	port := flag.Int("p", 0, "mail server port")
@@ -65,9 +67,9 @@ func Exec() {
 	m := parse()
 	h := &cmd.Home{}
 	j := &cmd.Jue{}
-	data, _ := h.GetOneData()
+	data, _ := h.GetOneData(*open)
 	data += "<hr />"
-	data_2, _ := j.GetOneData()
+	data_2, _ := j.GetOneData(*open)
 	data += data_2
 	//发送邮件
 	s := NewCnMail()

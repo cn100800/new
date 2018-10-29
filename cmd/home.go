@@ -97,7 +97,7 @@ func (h *Home) GetData() (z string, err error) {
 	return z, err
 }
 
-func (h *Home) GetOneData() (string, error) {
+func (h *Home) GetOneData(open bool) (string, error) {
 	have_more := true
 	z := ""
 	s, _ := time.LoadLocation("Asia/Shanghai")
@@ -123,7 +123,10 @@ func (h *Home) GetOneData() (string, error) {
 		for _, v := range info.Result {
 			now, err := time.ParseInLocation("2006-01-02T15:04:05", v.Orderdate, s)
 			if err != nil {
-				panic(err)
+				now, err = time.ParseInLocation(time.RFC3339, v.Orderdate, s)
+				if err != nil {
+					panic(err)
+				}
 			}
 			if now.Format("2006-01-02") != time.Now().In(s).Format("2006-01-02") {
 				continue
@@ -134,6 +137,9 @@ func (h *Home) GetOneData() (string, error) {
 				}
 			}
 			t = strconv.FormatInt(now.Unix(), 10) + "000"
+			if !open {
+				v.WapNewsUrl = ""
+			}
 			z += fmt.Sprintf(HOME_FORMAT, v.WapNewsUrl, v.Title, v.Description)
 			have_more = true
 		}
@@ -141,7 +147,7 @@ func (h *Home) GetOneData() (string, error) {
 	return z, nil
 }
 
-func (j *Jue) GetOneData() (string, error) {
+func (j *Jue) GetOneData(open bool) (string, error) {
 	have_more := true
 	z := ""
 	s, _ := time.LoadLocation("Asia/Shanghai")
@@ -176,7 +182,11 @@ func (j *Jue) GetOneData() (string, error) {
 			if now.Format("2006-01-02") != time.Now().In(s).Format("2006-01-02") {
 				continue
 			}
-			z += fmt.Sprintf("<a href='%s'><h2>%s</h2></a><br />", string(wap)+v.ObjectId, v.Content)
+			wap_url := ""
+			if open {
+				wap_url = string(wap) + v.ObjectId
+			}
+			z += fmt.Sprintf("<a href='%s'><h2>%s</h2></a><br />", wap_url, v.Content)
 			for _, vv := range v.Pictures {
 				z += fmt.Sprintf("<img src='%s' width='600' height='auto'/>", vv)
 			}
