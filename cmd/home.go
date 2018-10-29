@@ -39,6 +39,7 @@ type info struct {
 }
 
 type a struct {
+	Newsid      int    `json:"newsid"`
 	Title       string `json:"title"`
 	Orderdate   string `json:"orderdate"`
 	Description string `json:"description"`
@@ -121,6 +122,9 @@ func (h *Home) GetOneData(open bool) (string, error) {
 			panic(err)
 		}
 		for _, v := range info.Result {
+			if v.Newsid == 1 {
+				continue
+			}
 			now, err := time.ParseInLocation("2006-01-02T15:04:05", v.Orderdate, s)
 			if err != nil {
 				now, err = time.ParseInLocation(time.RFC3339, v.Orderdate, s)

@@ -54,7 +54,7 @@ func (w *Weather) GetData() (string, error) {
 	for _, v := range info.Data.Forecast24h {
 		now, _ := time.ParseInLocation("2006-01-02", v.Time, s)
 		z += fmt.Sprintf(`
-<table><tr><tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr></tr></table>
+<table><tr><tr><td width='80'>%s</td><td width='80'>%s</td><td width='50'>%s</td><td width='50'>%s</td></tr></tr></table>
 `, now.Weekday(), v.Time, v.DayWeather, v.DayWindDirection)
 	}
 	return z, err
