@@ -51,11 +51,11 @@ func (w *Weather) GetData() (string, error) {
 		panic(err)
 	}
 	z := ""
-	for _, v := range info.Data.Forecast24h {
-		now, _ := time.ParseInLocation("2006-01-02", v.Time, s)
+	for i := 1; i < len(info.Data.Forecast24h); i++ {
+		now, _ := time.ParseInLocation("2006-01-02", info.Data.Forecast24h[i].Time, s)
 		z += fmt.Sprintf(`
 <table><tr><tr><td width='80'>%s</td><td width='80'>%s</td><td width='50'>%s</td><td width='50'>%s</td></tr></tr></table>
-`, now.Weekday(), v.Time, v.DayWeather, v.DayWindDirection)
+`, now.Weekday(), info.Data.Forecast24h[i].Time, info.Data.Forecast24h[i].DayWeather, info.Data.Forecast24h[i].DayWindDirection)
 	}
 	return z, err
 }
