@@ -1,0 +1,35 @@
+language: go
+before_install:
+- openssl aes-256-cbc -K $encrypted_45a88a350c7e_key -iv $encrypted_45a88a350c7e_iv
+  -in cn.enc -out ~/.ssh/id_rsa -d
+- chmod 600 ~/.ssh/id_rsa
+install: true
+script: make build
+addons:
+  ssh_known_hosts:
+  - "$HOST"
+
+after_success:
+  #- rsync -av -e "ssh -o StrictHostKeyChecking=no" --exclude=.git . home@$HOST:/home/home/test
+  - rsync -av -e "ssh -o StrictHostKeyChecking=no" output/linux/* home@$HOST:/home/home/test
+
+notifications:
+  email:
+    recipients:
+    - cn100800@163.com
+    on_success: always
+    on_failure: always
+env:
+  global:
+    secure: FbByD85suhuz+wDvnsVkAQUDp+ol6jlM9YQPiedka9XLE66G3rR1NHysPaDMyDkufJ+nKkDT4aIFTvQ35QLj+Jmx/i44yr/HnT65FjiaaMKEhnVrYx5ktCiYlhEHdl6FgyhJinM2ZLxhABiQ67H8/9hx8wzv8WUJIGBoAeseUXR4xneMZaziXErAVeieNoVzx9zKyD87V5LWc6ZMw50f8nS++YOck7lLmQ2ISLpUUrayKYCD/vnHcM8NUFw7r0FfmtVjKzJf/augnNZ3lu+5WIMQTqRSXzM6djfw0AmZnOUEVo7yOdrkbSFBtNjimRRiuDsCpBzBZzOQ/vOMOLcwLimLRJZI+0RcC4T24MIllcHltf+pbCbgNrZcNpwkhijABJ8NgC2oi6ypzx3JwsTtG+pW9/XN9ALrMQS9cDYxXVoHtS36eYn57XMIvGg1q++s5tWpq5b5EXnhcF/6TSEene3GV7FzHe6BvloFR8h7RYjraEclUM4xpNVom5grD5nc8vO5OGHebMMokwLJ/8AYiidO6ZtiH+VHIFID63QozJXzJ/9A3OhsxmgFQ2rP7SD4Je7162LFum0+o2HZspYt4k/Veg9h8tj3poy4dnhZwu/iJSFHypaPEad/SrHVX1tCcPyagdFwFBkGss8jFh6ABo870C/aP/tIN7PuwcK0sKY=
+deploy:
+  provider: releases
+  api_key:
+    secure: ZXFkOD4xsSQIektxxjp6Y8INeHcUzvIk7tl2IxhfANnadTErzihlJY8FXnQCC4B2VFv64iGy7xbhH8Rxs8sr3K9/9AGnWDwwuF2d/mGQvX6EcDqNS7uoF65ErEVf+Ym7MVzbWmh0stnyPmB/3rRWaB9343ZaC5WWK7XMhzG+vkXqmIo6D+yDjyC5+OSEpHtMucVyf/o22+dTARuRqyIfMWe3Y5/XW3HxiUlykN85C1r442VcnKn8uLV20DDigM3tKqG5BjAtkhL45DSC8YPvczEhCupC4lwbHS3gY5Qkz82o356QryVzJf17o/o9cQrmVPKKWS6SewC8JJewsWfJy5ZF3/11nX/Zs9SIaQ2WzgoMYyP2W1aLrtoBj8LdrdTYXrpVUWztPsMTqe6zlUJc4jQ0lJBwD5J8EFn+3HeuePiZ+QthODuRrSVf7/Ve6I5ohgxcG5uu8Mesnimfc1xzm1bXojKkk3cQzjbhB9iy5kFH/Dw9tw6cwf6lLL8/c6ZIjhs9zJDdxRSAzojWMK8H9o3aPjSrtXEbCUij0CY8+WXiXhdxFWDelXwNeMeO91Vntbz/uq1swr82WCZHyPxCOiMiAIluC5dh+t9bBdwEysbSxVXQNphMZ8HUSyy91R1pYoK1hxslhajNbYP2sN/7HLAjhvpcM0ekr0vjSiXspMw=
+  file_glob: true
+  file:
+    - release/*
+  skip_cleanup: true
+  on:
+    tags: true
+
