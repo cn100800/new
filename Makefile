@@ -7,6 +7,8 @@ LINUX = linux
 VERSION = `git tag |sort -Vr |head -1`
 
 build:
+	@export GO111MODULE=on
+	@go mod vendor
 	@mkdir -p $(BUILD_DIR)
 	@mkdir -p $(RELEASE_DIR)
 	@GOOS=darwin GOARCH=amd64 go build -o $(BUILD_DIR)/$(DARWIN)/$(APP_NAME) -ldflags "-s -w"
