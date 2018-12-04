@@ -1,7 +1,8 @@
 language: go
 go:
-    - "1.11"
+- '1.11'
 install: true
+before_script: export GO111MODULE=on
 script: make build
 addons:
   ssh_known_hosts:
@@ -16,15 +17,18 @@ notifications:
     on_failure: always
 deploy:
   provider: releases
-  api_key:
-    secure: ZXFkOD4xsSQIektxxjp6Y8INeHcUzvIk7tl2IxhfANnadTErzihlJY8FXnQCC4B2VFv64iGy7xbhH8Rxs8sr3K9/9AGnWDwwuF2d/mGQvX6EcDqNS7uoF65ErEVf+Ym7MVzbWmh0stnyPmB/3rRWaB9343ZaC5WWK7XMhzG+vkXqmIo6D+yDjyC5+OSEpHtMucVyf/o22+dTARuRqyIfMWe3Y5/XW3HxiUlykN85C1r442VcnKn8uLV20DDigM3tKqG5BjAtkhL45DSC8YPvczEhCupC4lwbHS3gY5Qkz82o356QryVzJf17o/o9cQrmVPKKWS6SewC8JJewsWfJy5ZF3/11nX/Zs9SIaQ2WzgoMYyP2W1aLrtoBj8LdrdTYXrpVUWztPsMTqe6zlUJc4jQ0lJBwD5J8EFn+3HeuePiZ+QthODuRrSVf7/Ve6I5ohgxcG5uu8Mesnimfc1xzm1bXojKkk3cQzjbhB9iy5kFH/Dw9tw6cwf6lLL8/c6ZIjhs9zJDdxRSAzojWMK8H9o3aPjSrtXEbCUij0CY8+WXiXhdxFWDelXwNeMeO91Vntbz/uq1swr82WCZHyPxCOiMiAIluC5dh+t9bBdwEysbSxVXQNphMZ8HUSyy91R1pYoK1hxslhajNbYP2sN/7HLAjhvpcM0ekr0vjSiXspMw=
   file_glob: true
   file:
   - release/*
   skip_cleanup: true
   on:
     tags: true
+  api_key:
+    secure: ZR6WyrpaHniwZHM9fwI71HMOTPsrcP+dnFHeSsVS5yIl8Rwkq5p5beY3zM2UYFb1FGaKaD08jmSCI/IRfqZ9KkdnLDZImR37giF6mP0T16m3ZRKvugEprs/t59xTrm9+gQXRew1oxptfAmagdzgoPm7SIP3EyX+iMWHJ9DoQznvA1mz2Kaew75VAGF2IPdT1ndW2OUWp/h2SrNEe1f50I03laizLueCN3iqE9jqppNkeixmR+2lU29O/DImD47bwW8nGqTMryG91MWo3ZZxiCnjn92Q62Lev7zF/eobypmxzVJ1k98bfpBS6t15206xpQFt3uVNpCkM1cApWTb7k3pNY25JgWptkT1viWObPm2Vwa3Pz92QqkhLMnZHyNClta9ayWTef2DkYcRT1lU6cBRwykO6iFTNIIrpvdRrG+IF+LRz6F11g6IDOvmcxlE/18UfPcCgUfUup6v/OWleLMsBrbM4LJ2rtjlPXKi0Sv84iGAVHY+Qk0NMMX6PBiBBoOl6YR3kunVj/k+frlURoHS2VhA9IFTHw59cKY5S8ruHVbh6UfCx+Ruas3y9QxOokVwX+8fRGzpyMewIVuT5LTOYNN68rWKL5nOrOYYGR/Z/ILKpP5/2TrhmrwfHGhY2XnWe51aGuJGZjQ6KTezaPtsfg+o7oPif5U0SMGs7q6js=
 before_install:
 - openssl aes-256-cbc -K $encrypted_2c6b8603e1ab_key -iv $encrypted_2c6b8603e1ab_iv
   -in cn.enc -out ~/.ssh/id_rsa -d
 - chmod 600 ~/.ssh/id_rsa
+env:
+  global:
+    secure: YwyajPw83eQ2E3K+puDVbUPRvXnGDmn9XD+jzG2vRH8YvUL/VdHiVUZRejWCTZ126mcMffbOKUJ4U6Q0prXHPGHdqvWGX24BX1JfduLM4K2SQFeA6RidjFmtZccqrd/kKnHVgsaYQKNRJMFSwk65LGACXZdUgLw55qt4Ael2t1kyS64bDs3O6epALrHiG+S2o130I7im/QWasQohoMzXxD267mRxsBElIjqAY3kd04eNOB6fCjuSsIvkzd6mQabBFa9pdL7aUaiKOPCCFvrf9Nqa4z7yf8rZcpjxx+QJ+kyyw9A2LyRUfTgex+JOSsmm3Y1ex3jXJsk94MUpqKuG3kRP9fteWYEK9/SlE7IVnD54nwcVHl1x86BFfn31DLe8QbUYrpOCTYYNVgrxgT6Xell+X0EAoeN+7q2otSaWPzsrzaGAxCow9wUisv9NJVfNvTPS7x4Znq3UUZzX9jYsfSxJgZ1HYefbdAfTsfshrjv0y3wWlN1Wgis/YuxWEeAKxSLo/Fqvp34j7ayEUTis2mM8pcWSZxhOckZ7uyoKKflR0CYxkiJ17yDL63cLm9e9kdf3Hx36jug7nwJAgOHMnLn1n0hMGMTgrE+HhpPV0dVNqE7Rj60SZxDCnIA6wn3yC9v2PlNWJKku7JRbkLuFvUDwpKC1MvRGlphCwz5eASI=
