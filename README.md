@@ -1,5 +1,7 @@
 # install
 
+[![Build Status](https://travis-ci.org/cn100800/news.svg?branch=master)](https://travis-ci.org/cn100800/news)
+
 ```sh
 curl https://raw.githubusercontent.com/cn100800/news/master/scripts/install.sh -sSf | sh
 ```
