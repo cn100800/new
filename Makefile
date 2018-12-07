@@ -16,8 +16,8 @@ build:
 	@echo "build success!"
 	#@tar -cvzf $(RELEASE_DIR)/$(VERSION).tar.gz -C $(BUILD_DIR)/$(DARWIN) .
 	#@tar -cvzf $(RELEASE_DIR)/$(VERSION).tar.xz -C $(BUILD_DIR)/$(LINUX) .
-	tar -cvzf $(RELEASE_DIR)/$(VERSION).tar.gz -C $(BUILD_DIR)/$(DARWIN) .
-	tar -cvzf $(RELEASE_DIR)/$(VERSION).tar.xz -C $(BUILD_DIR)/$(LINUX) .
+	zip -j $(RELEASE_DIR)/$(VERSION).zip $(BUILD_DIR)/$(DARWIN)/*
+	tar -cvzf $(RELEASE_DIR)/$(VERSION).tar.gz -C $(BUILD_DIR)/$(LINUX) .
 	@echo "release success!"
 
 BUILD_DIR = output
