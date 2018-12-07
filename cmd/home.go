@@ -89,12 +89,12 @@ func (h *Home) GetData() (z string, err error) {
 	log.Println(uPath)
 	resp, err := http.Get(uPath)
 	data, _ := ioutil.ReadAll(resp.Body)
+	log.Println(string(data))
 	info := info{}
 	err = json.Unmarshal(data, &info)
 	if err != nil {
 		panic(err)
 	}
-	log.Println(info.Result)
 	for _, v := range info.Result {
 		z += fmt.Sprintf(HOME_FORMAT, v.WapNewsUrl, v.Title, v.Description)
 	}
@@ -120,12 +120,12 @@ func (h *Home) GetOneData(open bool) (string, error) {
 		log.Println(uPath)
 		resp, err := http.Get(uPath)
 		data, _ := ioutil.ReadAll(resp.Body)
+		log.Println(string(data))
 		info := info{}
 		err = json.Unmarshal(data, &info)
 		if err != nil {
 			panic(err)
 		}
-		log.Println(info.Result)
 		for _, v := range info.Result {
 			if v.Newsid == 1 {
 				continue
@@ -179,12 +179,12 @@ func (j *Jue) GetOneData(open bool) (string, error) {
 		log.Println(uPath)
 		resp, err := http.Get(uPath)
 		data, _ := ioutil.ReadAll(resp.Body)
+		log.Println(string(data))
 		info := JueResult{}
 		err = json.Unmarshal(data, &info)
 		if err != nil {
 			panic(err)
 		}
-		log.Println(info.D.List)
 		for _, v := range info.D.List {
 			now, err := time.ParseInLocation("2006-01-02T15:04:05Z", v.CreatedAt, s)
 			if err != nil {
@@ -193,11 +193,13 @@ func (j *Jue) GetOneData(open bool) (string, error) {
 			if now.Format("2006-01-02") != time.Now().In(s).Format("2006-01-02") {
 				continue
 			}
-			wap_url := ""
+			//wap_url := ""
 			if open {
-				wap_url = string(wap) + v.ObjectId
+				_ = string(wap) + v.ObjectId
 			}
-			z += fmt.Sprintf("<a href='%s'><h2>%s</h2></a><br />", wap_url, v.Content)
+
+			//z += fmt.Sprintf("<a href='%s'><h2>%s</h2></a><br />", wap_url, v.Content)
+			z += fmt.Sprintf("<h2>%s %s</h2><br />", v.Content, v.Url)
 			for _, vv := range v.Pictures {
 				z += fmt.Sprintf("<img src='%s' width='600' height='auto'/>", vv)
 			}
@@ -225,13 +227,13 @@ func (j *Jue) GetData() (string, error) {
 	log.Println(uPath)
 	resp, err := http.Get(uPath)
 	data, _ := ioutil.ReadAll(resp.Body)
+	log.Println(string(data))
 	info := JueResult{}
 	err = json.Unmarshal(data, &info)
 	if err != nil {
 		panic(err)
 	}
 	z := ""
-	log.Println(info.D.List)
 	for _, v := range info.D.List {
 		z += fmt.Sprintf("<h2>%s</h2><br />", v.Content)
 		for _, vv := range v.Pictures {
@@ -258,6 +260,7 @@ type JueObject struct {
 	Pictures  []string `json:pictures`
 	CreatedAt string   `json:createdAt`
 	ObjectId  string   `json:objectId`
+	Url       string   `json:url`
 }
 
 func NewHome() *Home {
