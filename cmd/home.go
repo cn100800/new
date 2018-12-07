@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -85,6 +86,7 @@ func (h *Home) GetData() (z string, err error) {
 	param.Set("page", "0")
 	u.RawQuery = param.Encode()
 	uPath := u.String()
+	log.Println(uPath)
 	resp, err := http.Get(uPath)
 	data, _ := ioutil.ReadAll(resp.Body)
 	info := info{}
@@ -92,6 +94,7 @@ func (h *Home) GetData() (z string, err error) {
 	if err != nil {
 		panic(err)
 	}
+	log.Println(info.Result)
 	for _, v := range info.Result {
 		z += fmt.Sprintf(HOME_FORMAT, v.WapNewsUrl, v.Title, v.Description)
 	}
@@ -114,6 +117,7 @@ func (h *Home) GetOneData(open bool) (string, error) {
 		param.Set("page", "0")
 		u.RawQuery = param.Encode()
 		uPath := u.String()
+		log.Println(uPath)
 		resp, err := http.Get(uPath)
 		data, _ := ioutil.ReadAll(resp.Body)
 		info := info{}
@@ -121,6 +125,7 @@ func (h *Home) GetOneData(open bool) (string, error) {
 		if err != nil {
 			panic(err)
 		}
+		log.Println(info.Result)
 		for _, v := range info.Result {
 			if v.Newsid == 1 {
 				continue
@@ -171,6 +176,7 @@ func (j *Jue) GetOneData(open bool) (string, error) {
 		param.Set("limit", "30")
 		u.RawQuery = param.Encode()
 		uPath := u.String()
+		log.Println(uPath)
 		resp, err := http.Get(uPath)
 		data, _ := ioutil.ReadAll(resp.Body)
 		info := JueResult{}
@@ -178,6 +184,7 @@ func (j *Jue) GetOneData(open bool) (string, error) {
 		if err != nil {
 			panic(err)
 		}
+		log.Println(info.D.List)
 		for _, v := range info.D.List {
 			now, err := time.ParseInLocation("2006-01-02T15:04:05Z", v.CreatedAt, s)
 			if err != nil {
@@ -215,6 +222,7 @@ func (j *Jue) GetData() (string, error) {
 	param.Set("limit", "30")
 	u.RawQuery = param.Encode()
 	uPath := u.String()
+	log.Println(uPath)
 	resp, err := http.Get(uPath)
 	data, _ := ioutil.ReadAll(resp.Body)
 	info := JueResult{}
@@ -223,6 +231,7 @@ func (j *Jue) GetData() (string, error) {
 		panic(err)
 	}
 	z := ""
+	log.Println(info.D.List)
 	for _, v := range info.D.List {
 		z += fmt.Sprintf("<h2>%s</h2><br />", v.Content)
 		for _, vv := range v.Pictures {
