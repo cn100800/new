@@ -10,7 +10,7 @@ import (
 	"github.com/cn100800/news/etc"
 
 	"github.com/fatih/color"
-	"github.com/go-ozzo/ozzo-config"
+	config "github.com/go-ozzo/ozzo-config"
 	"github.com/urfave/cli"
 )
 
@@ -72,7 +72,7 @@ func Exec() {
 	h := &cmd.Home{}
 	j := &cmd.Jue{}
 	Hdata, _ := h.GetOneData(*open)
-	Jdata, _ := j.GetOneData(*open)
+	Jdata, _ := j.GetV1Data()
 	content := wd + "<hr />" + Hdata + "<hr />" + Jdata
 	//发送邮件
 	s := NewCnMail()

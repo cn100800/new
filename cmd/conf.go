@@ -15,3 +15,8 @@ var (
 	juePath = "v1/pinList/recommend"
 	jueWap  = "aHR0cHM6Ly9qdWVqaW4uaW0vcGluLw=="
 )
+
+var (
+	jueV1Url  = "aHR0cHM6Ly93ZWItYXBpLmp1ZWppbi5pbS8="
+	jueV1Path = "query"
+)
