@@ -22,7 +22,7 @@ func (j *Jue) GetV1Data() (string, error) {
 		r := &JueReq{}
 		r.Variables.Size = 2
 		r.Variables.After = after
-		r.Extensions.Query.Id = "964dab26a3f9997283d173b865509890"
+		r.Extensions.Query.Id = "249431a8e4d85e459f6c29eb808e76d0"
 		x, _ := json.Marshal(r)
 		req, _ := http.NewRequest(http.MethodPost, p, bytes.NewBuffer(x))
 		req.Header.Add("Content-Type", "application/json")
