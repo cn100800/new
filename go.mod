@@ -1,4 +1,4 @@
-module github.com/cn100800/news
+module github.com/freecracy/news
 
 require (
 	github.com/BurntSushi/toml v0.3.1 // indirect

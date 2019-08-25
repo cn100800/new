@@ -1,6 +1,6 @@
 package main
 
-import "github.com/cn100800/news/common"
+import "github.com/freecracy/news/common"
 
 func main() {
 	common.Exec()

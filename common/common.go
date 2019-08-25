@@ -6,8 +6,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/cn100800/news/cmd"
-	"github.com/cn100800/news/etc"
+	"github.com/freecracy/news/cmd"
+	"github.com/freecracy/news/etc"
 
 	"github.com/fatih/color"
 	config "github.com/go-ozzo/ozzo-config"

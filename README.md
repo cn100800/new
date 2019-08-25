@@ -6,6 +6,12 @@
 curl https://raw.githubusercontent.com/cn100800/news/master/scripts/install.sh -sSf | sh
 ```
 
+# 使用
+
+```bash
+./news -u [email] -P [password] -h smtp.gmail.com -f [email] -t [email] -p 587
+```
+
 ### 听说你想请我喝下午茶？😏
 
 <!--![Wechat](Wechat.jpeg)-->
