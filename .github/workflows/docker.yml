@@ -1,10 +1,10 @@
 name: Docker Image CI
 on: 
   push: 
-    branches:
-      - master
-    #tags:
-    #  - '*'
+    #branches:
+    #  - master
+    tags:
+      - '*'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -12,11 +12,11 @@ jobs:
     - uses: actions/checkout@master
     - name: Build the Docker image
       run: | 
-        docker build . --build-arg PASSWORD=${{ secrets.EMAIL_PASSWORD }} --file Dockerfile --tag cn100800/news:$(date +%y%m%d)
+        docker build . --build-arg PASSWORD=${{ secrets.EMAIL_PASSWORD }} --file Dockerfile --tag cn100800/news:${GITHUB_REF:10}
     - name: Push the Docker image
       env:
         U: ${{ secrets.DOCKER_USER }}
         P: ${{ secrets.DOCKER_PASSWORD }}
       run: |
         docker login -u "$U" -p "$P"
-        docker push cn100800/gproject:$(date +%y%m%d)
+        docker push cn100800/news:${GITHUB_REF:10}
