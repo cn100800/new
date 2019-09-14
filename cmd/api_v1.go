@@ -45,7 +45,7 @@ func (j *Jue) GetV1Data() (string, error) {
 				}
 				s += fmt.Sprintf("<h2>%s %s</h2><br />", vv.Content, vv.Url)
 				for _, vvv := range vv.Pictures {
-					s += fmt.Sprintf("<img src='%s' width='600' height='auto'/>", vvv)
+					s += fmt.Sprintf("<a href='%s'><img src='%s' width='600' height='auto'/></a>", vvv, vvv)
 				}
 				after = JueV1Results.Data.RecommendedActivityFeed.Items.PageInfo.EndCursor
 				have_more = true
