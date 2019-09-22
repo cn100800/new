@@ -55,7 +55,7 @@ func (m *CnMail) SendMail(context string) {
 	g.SetBody("text/html", context)
 	// m.Attach("/home/Alex/lolcat.jpg")
 
-	d := gomail.NewDialer(m.Host, 587, m.Username, m.Password)
+	d := gomail.NewPlainDialer(m.Host, 587, m.Username, m.Password)
 	// 解决 x509: certificate signed by unknown authority
 	d.TLSConfig = &tls.Config{InsecureSkipVerify: true}
 

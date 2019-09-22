@@ -43,10 +43,10 @@ func (j *Jue) GetV1Data() (string, error) {
 				if now.Format("2006-01-02") != time.Now().In(t).Format("2006-01-02") {
 					continue
 				}
-				s += fmt.Sprintf("<h2>%s %s</h2><br />", vv.Content, vv.Url)
 				for _, vvv := range vv.Pictures {
 					s += fmt.Sprintf("<a href='%s'><img src='%s' width='600' height='auto'/></a>", vvv, vvv)
 				}
+				s += fmt.Sprintf("<h2>%s %s</h2><br />", vv.Content, vv.Url)
 				after = JueV1Results.Data.RecommendedActivityFeed.Items.PageInfo.EndCursor
 				have_more = true
 			}

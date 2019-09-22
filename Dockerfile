@@ -8,7 +8,7 @@ RUN apk update && \
     echo "Asia/Shanghai" > /etc/timezone && \
     apk add go git && \
     go get github.com/cn100800/news && \
-    echo "58 23 * * * /root/go/bin/news -o -u myqq2018@gmail.com -P $PASSWORD -h smtp.gmail.com -f myqq2018@gmail.com -t myqq2018@gmail.com -p 587" > /root/hello-cron && \
+    echo "58 23 * * * /root/go/bin/news -o -u myqq2018@gmail.com -P $PASSWORD -h smtp.gmail.com -f  myqq2018@gmail.com -t myqq2018@gmail.com -p 587" > /root/hello-cron && \
     chmod 0644 /root/hello-cron && \
     crontab /root/hello-cron
 CMD crond -f
