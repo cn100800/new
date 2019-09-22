@@ -1,5 +1,5 @@
 # 简介
-![](https://github.com/freecracy/news/workflows/Build%20the%20Docker%20image/badge.svg)
+![](https://github.com/freecracy/news/workflows/Docker%20Image%20CI/badge.svg)
 
 # install
 
