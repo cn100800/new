@@ -66,14 +66,16 @@ func Exec() {
 
 	m := parse()
 
-	w := &cmd.Weather{}
-	wd, _ := w.GetData()
+	// w := &cmd.Weather{}
+	// wd, _ := w.GetData()
 
 	h := &cmd.Home{}
 	j := &cmd.Jue{}
 	Hdata, _ := h.GetOneData(*open)
 	Jdata, _ := j.GetV1Data()
-	content := wd + "<hr />" + Hdata + "<hr />" + Jdata
+	//content := wd + "<hr />" + Hdata + "<hr />" + Jdata
+	content := Hdata + "<hr />" + Jdata
+
 	//发送邮件
 	s := NewCnMail()
 	s.Setup(m)
