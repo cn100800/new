@@ -1,7 +1,8 @@
 # 简介
-![](https://github.com/freecracy/news/workflows/Docker%20Image%20CI/badge.svg)
 
-# install
+![ci](https://github.com/freecracy/news/workflows/Docker%20Image%20CI/badge.svg)
+
+## install
 
 [![Badge](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu/#/zh_CN)  [![Build Status](https://travis-ci.org/cn100800/news.svg?branch=master)](https://travis-ci.org/cn100800/news)
 
@@ -9,7 +10,7 @@
 curl https://raw.githubusercontent.com/cn100800/news/master/scripts/install.sh -sSf | sh
 ```
 
-# 使用
+## 使用
 
 ```bash
 ./news -u [email] -P [password] -h smtp.gmail.com -f [email] -t [email] -p 587

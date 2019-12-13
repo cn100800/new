@@ -38,7 +38,7 @@ func (j *Jue) GetV1Data() (string, error) {
 			for _, vv := range v.Node.Targets {
 				now, err := time.ParseInLocation("2006-01-02T15:04:05Z", vv.CreatedAt, t)
 				if err != nil {
-					panic(err)
+					continue
 				}
 				if now.Format("2006-01-02") != time.Now().In(t).Format("2006-01-02") {
 					continue

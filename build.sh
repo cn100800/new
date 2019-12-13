@@ -25,7 +25,7 @@ GZ="gz"
 XZ="xz"
 
 VERSION=$(date +%Y.%m.%d)${SUFFIX}
-OLD_VERSION=$(git tag |sort -Vr |head -1)
+OLD_VERSION=$(git tag | sort -Vr | head -1)
 
 echo "===>当前版本是:$OLD_VERSION"
 

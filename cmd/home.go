@@ -35,7 +35,7 @@ type Jue struct {
 }
 
 type info struct {
-	Success int `json:"Success`
+	Success int `json:"Success"`
 	Result  []a
 }
 
@@ -46,7 +46,7 @@ type a struct {
 	Description string `json:"description"`
 	Isad        bool   `json:"isad"`
 	WapNewsUrl  string `json:"WapNewsUrl"`
-	NewsTips    []Ad   `json:NewsTips`
+	NewsTips    []Ad   `json:"NewsTips"`
 	//Newsid        int         `json:"newsid"`
 	// V             string      `json:"v"`
 	// Postdate      string      `json:"postdate"`
@@ -124,7 +124,7 @@ func (h *Home) GetOneData(open bool) (string, error) {
 		info := info{}
 		err = json.Unmarshal(data, &info)
 		if err != nil {
-			panic(err)
+			log.Println(err.Error())
 		}
 		for _, v := range info.Result {
 			if v.Newsid == 1 {
@@ -134,7 +134,7 @@ func (h *Home) GetOneData(open bool) (string, error) {
 			if err != nil {
 				now, err = time.ParseInLocation(time.RFC3339, v.Orderdate, s)
 				if err != nil {
-					panic(err)
+					continue
 				}
 			}
 			if now.Format("2006-01-02") != time.Now().In(s).Format("2006-01-02") {
@@ -250,17 +250,17 @@ type JueResult struct {
 }
 
 type JueList struct {
-	Total int         `json:"total`
+	Total int         `json:"total"`
 	List  []JueObject `json:"list"`
 }
 
 type JueObject struct {
-	Uid       string   `json:uid`
-	Content   string   `json:content`
-	Pictures  []string `json:pictures`
-	CreatedAt string   `json:createdAt`
-	ObjectId  string   `json:objectId`
-	Url       string   `json:url`
+	Uid       string   `json:"uid"`
+	Content   string   `json:"content"`
+	Pictures  []string `json:"pictures"`
+	CreatedAt string   `json:"createdAt"`
+	ObjectId  string   `json:"objectId"`
+	Url       string   `json:"url"`
 }
 
 func NewHome() *Home {

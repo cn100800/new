@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"net/url"
 	"time"
@@ -48,7 +49,7 @@ func (w *Weather) GetData() (string, error) {
 	info := Result{}
 	err = json.Unmarshal(data, &info)
 	if err != nil {
-		panic(err)
+		log.Println(err.Error())
 	}
 	z := ""
 	for i := 1; i < len(info.Data.Forecast24h); i++ {

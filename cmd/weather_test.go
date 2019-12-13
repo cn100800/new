@@ -13,7 +13,6 @@ func TestWeather_GetData(t *testing.T) {
 		want    string
 		wantErr bool
 	}{
-		// TODO: Add test cases.
 		{
 			"test",
 			&cmd.Weather{},
