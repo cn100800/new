@@ -108,6 +108,7 @@ func (h *Home) GetOneData(open bool) (string, error) {
 	t := strconv.FormatInt(time.Now().In(s).Unix(), 10) + "000"
 	d, _ := base64.StdEncoding.DecodeString(homeUrl)
 	str := string(d) + homePath
+	rt := 0
 	for have_more {
 		have_more = false
 		param := url.Values{}
@@ -119,6 +120,13 @@ func (h *Home) GetOneData(open bool) (string, error) {
 		uPath := u.String()
 		log.Println(uPath)
 		resp, err := http.Get(uPath)
+		if resp.StatusCode != 200 {
+			rt++
+			continue
+		}
+		if resp.StatusCode != 200 && rt >= 3 {
+			break
+		}
 		data, _ := ioutil.ReadAll(resp.Body)
 		log.Println(string(data))
 		info := info{}
