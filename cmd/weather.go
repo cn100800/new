@@ -34,7 +34,7 @@ type WeatherObject struct {
 
 func (w *Weather) GetData() (string, error) {
 	s, _ := time.LoadLocation("Asia/Shanghai")
-	d, _ := base64.StdEncoding.DecodeString(weatherUrl)
+	d, _ := base64.StdEncoding.DecodeString(weatherURL)
 	str := string(d) + weatherPath
 	param := url.Values{}
 	u, _ := url.Parse(str)

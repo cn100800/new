@@ -76,7 +76,7 @@ type Ad struct {
 func (h *Home) GetData() (z string, err error) {
 	t := strconv.FormatInt(time.Now().Unix(), 10) + "000"
 	z = ""
-	d, _ := base64.StdEncoding.DecodeString(homeUrl)
+	d, _ := base64.StdEncoding.DecodeString(homeURL)
 	m := string(d)
 	str := m + homePath
 	param := url.Values{}
@@ -102,15 +102,15 @@ func (h *Home) GetData() (z string, err error) {
 }
 
 func (h *Home) GetOneData(open bool) (string, error) {
-	have_more := true
+	haveMore := true
 	z := ""
 	s, _ := time.LoadLocation("Asia/Shanghai")
 	t := strconv.FormatInt(time.Now().In(s).Unix(), 10) + "000"
-	d, _ := base64.StdEncoding.DecodeString(homeUrl)
+	d, _ := base64.StdEncoding.DecodeString(homeURL)
 	str := string(d) + homePath
 	rt := 0
-	for have_more {
-		have_more = false
+	for haveMore {
+		haveMore = false
 		param := url.Values{}
 		u, _ := url.Parse(str)
 		param.Set("Tag", "")
@@ -158,22 +158,22 @@ func (h *Home) GetOneData(open bool) (string, error) {
 				v.WapNewsUrl = ""
 			}
 			z += fmt.Sprintf(HOME_FORMAT, v.WapNewsUrl, v.Title, v.Description)
-			have_more = true
+			haveMore = true
 		}
 	}
 	return z, nil
 }
 
 func (j *Jue) GetOneData(open bool) (string, error) {
-	have_more := true
+	haveMore := true
 	z := ""
 	s, _ := time.LoadLocation("Asia/Shanghai")
-	d, _ := base64.StdEncoding.DecodeString(jueUrl)
+	d, _ := base64.StdEncoding.DecodeString(jueURL)
 	wap, _ := base64.StdEncoding.DecodeString(jueWap)
 	str := string(d) + juePath
 	before := ""
-	for have_more {
-		have_more = false
+	for haveMore {
+		haveMore = false
 		param := url.Values{}
 		u, _ := url.Parse(str)
 		param.Set("uid", "")
@@ -212,14 +212,14 @@ func (j *Jue) GetOneData(open bool) (string, error) {
 				z += fmt.Sprintf("<img src='%s' width='600' height='auto'/>", vv)
 			}
 			before = v.CreatedAt
-			have_more = true
+			haveMore = true
 		}
 	}
 	return z, nil
 }
 
 func (j *Jue) GetData() (string, error) {
-	d, _ := base64.StdEncoding.DecodeString(jueUrl)
+	d, _ := base64.StdEncoding.DecodeString(jueURL)
 	m := string(d)
 	str := m + juePath
 	param := url.Values{}

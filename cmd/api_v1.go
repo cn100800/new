@@ -11,14 +11,14 @@ import (
 )
 
 func (j *Jue) GetV1Data() (string, error) {
-	have_more := true
+	haveMore := true
 	s := ""
 	t, _ := time.LoadLocation("Asia/Shanghai")
 	u, _ := base64.StdEncoding.DecodeString(jueV1Url)
 	p := string(u) + jueV1Path
 	after := ""
-	for have_more {
-		have_more = false
+	for haveMore {
+		haveMore = false
 		r := &JueReq{}
 		r.Variables.Size = 2
 		r.Variables.After = after
@@ -48,7 +48,7 @@ func (j *Jue) GetV1Data() (string, error) {
 				}
 				s += fmt.Sprintf("<h2>%s %s</h2><br />", vv.Content, vv.Url)
 				after = JueV1Results.Data.RecommendedActivityFeed.Items.PageInfo.EndCursor
-				have_more = true
+				haveMore = true
 			}
 		}
 	}
