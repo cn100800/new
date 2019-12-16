@@ -76,8 +76,10 @@ func Exec() {
 
 	r1 := make(chan string)
 	r2 := make(chan string)
-	defer close(r1)
-	defer close(r2)
+	defer func() {
+		close(r1)
+		close(r2)
+	}()
 	go func() {
 		wg.Add(1)
 		defer wg.Done()
