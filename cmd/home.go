@@ -119,7 +119,13 @@ func (h *Home) GetOneData(open bool) (string, error) {
 		u.RawQuery = param.Encode()
 		uPath := u.String()
 		log.Println(uPath)
-		resp, err := http.Get(uPath)
+
+		req, err := http.NewRequest(http.MethodGet, uPath, nil)
+		req.Header.Add("user-agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.79 Safari/537.36")
+		client := &http.Client{}
+		resp, _ := client.Do(req)
+
+		//resp, err := http.Get(uPath)
 		if resp.StatusCode != 200 {
 			rt++
 			continue
