@@ -107,7 +107,9 @@ func Exec() {
 	// Connect to the server, authenticate, set the sender and recipient,
 	// and send the email all in one step.
 	to := []string{m.to}
-	msg := []byte(content)
+	mime := "MIME-version: 1.0;\nContent-Type: text/html; charset=\"UTF-8\";\n\n"
+	subject := "早读!\n"
+	msg := []byte(subject + mime + content)
 	if err := smtp.SendMail(m.host+":"+strconv.Itoa(m.port), auth, m.from, to, msg); err != nil {
 		log.Println(err.Error())
 	}
