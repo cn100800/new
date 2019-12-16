@@ -49,7 +49,7 @@ func (j *Jue) GetV1Data() (string, error) {
 				s += fmt.Sprintf("<h2>%s %s</h2><br />", vv.Content, vv.Url)
 				after = JueV1Results.Data.RecommendedActivityFeed.Items.PageInfo.EndCursor
 				haveMore = true
-				time.Sleep(time.Second)
+				time.Sleep(time.Millisecond)
 			}
 		}
 	}

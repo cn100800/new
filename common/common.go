@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"sync"
 
 	"github.com/freecracy/news/cmd"
 	"github.com/freecracy/news/etc"
@@ -68,14 +69,34 @@ func Exec() {
 
 	// w := &cmd.Weather{}
 	// wd, _ := w.GetData()
+	var wg sync.WaitGroup
 
 	h := &cmd.Home{}
 	j := &cmd.Jue{}
-	Hdata, _ := h.GetOneData(*open)
-	Jdata, _ := j.GetV1Data()
+
+	r1 := make(chan string)
+	r2 := make(chan string)
+	defer close(r1)
+	defer close(r2)
+	go func() {
+		wg.Add(1)
+		defer wg.Done()
+		data, _ := h.GetOneData(*open)
+		r1 <- data
+	}()
+	go func() {
+		wg.Add(1)
+		defer wg.Done()
+		data, _ := j.GetV1Data()
+		r2 <- data
+	}()
+
+	wg.Wait()
+	var Hdata, Jdata string
+	Hdata = <-r1
+	Jdata = <-r2
 	//content := wd + "<hr />" + Hdata + "<hr />" + Jdata
 	content := Hdata + "<hr />" + Jdata
-
 	//发送邮件
 	s := NewCnMail()
 	s.Setup(m)
