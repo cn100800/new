@@ -159,6 +159,7 @@ func (h *Home) GetOneData(open bool) (string, error) {
 			}
 			z += fmt.Sprintf(HOME_FORMAT, v.WapNewsUrl, v.Title, v.Description)
 			haveMore = true
+			time.Sleep(5 * time.Second)
 		}
 	}
 	return z, nil
