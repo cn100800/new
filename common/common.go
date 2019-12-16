@@ -4,7 +4,9 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"net/smtp"
 	"os"
+	"strconv"
 	"sync"
 
 	"github.com/freecracy/news/cmd"
@@ -100,6 +102,16 @@ func Exec() {
 	//content := wd + "<hr />" + Hdata + "<hr />" + Jdata
 	content := Hdata + "<hr />" + Jdata
 	//发送邮件
+	auth := smtp.PlainAuth("cn", m.username, m.password, m.host)
+
+	// Connect to the server, authenticate, set the sender and recipient,
+	// and send the email all in one step.
+	to := []string{m.to}
+	msg := []byte(content)
+	if err := smtp.SendMail(m.host+":"+strconv.Itoa(m.port), auth, m.from, to, msg); err != nil {
+		log.Println(err.Error())
+	}
+	os.Exit(0)
 	s := NewCnMail()
 	s.Setup(m)
 	s.SendMail(content)
