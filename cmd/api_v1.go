@@ -30,6 +30,7 @@ func (j *Jue) GetV1Data() (string, error) {
 		client := &http.Client{}
 		resp, _ := client.Do(req)
 		data, _ := ioutil.ReadAll(resp.Body)
+		log.Println(string(data))
 		var JueV1Results JueV1Result
 		if err := json.Unmarshal(data, &JueV1Results); err != nil {
 			return s, err
