@@ -86,8 +86,8 @@ func Exec() {
 	go func() {
 		wg.Add(1)
 		defer wg.Done()
-		data, _ := h.GetOneData(*open)
-		r1 <- data
+		data1, _ := h.GetOneData(*open)
+		r1 <- data1
 	}()
 	go func() {
 		wg.Add(1)
