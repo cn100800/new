@@ -101,6 +101,7 @@ func Exec() {
 	Hdata = <-r1
 	Jdata = <-r2
 	//content := wd + "<hr />" + Hdata + "<hr />" + Jdata
+
 	content := Hdata + "<hr />" + Jdata
 	//发送邮件
 	auth := smtp.PlainAuth("cn", m.username, m.password, m.host)

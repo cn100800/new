@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"time"
 )
@@ -18,6 +19,7 @@ func (j *Jue) GetV1Data() (string, error) {
 	p := string(u) + jueV1Path
 	after := ""
 	for haveMore {
+		time.Sleep(2 * time.Microsecond)
 		haveMore = false
 		r := &JueReq{}
 		r.Variables.Size = 2
@@ -27,6 +29,7 @@ func (j *Jue) GetV1Data() (string, error) {
 		req, _ := http.NewRequest(http.MethodPost, p, bytes.NewBuffer(x))
 		req.Header.Add("Content-Type", "application/json")
 		req.Header.Add("X-Agent", "Juejin/Web")
+		req.Header.Add("user-agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.79 Safari/537.36")
 		client := &http.Client{}
 		resp, _ := client.Do(req)
 		data, _ := ioutil.ReadAll(resp.Body)
