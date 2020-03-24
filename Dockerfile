@@ -1,4 +1,3 @@
-# docker run -d --name news --restart always cn100800/news
 FROM alpine
 LABEL maintainer="freecracy1024@gmail.com"
 ARG PASSWORD
@@ -13,3 +12,9 @@ RUN apk update && \
     chmod 0644 /root/hello-cron && \
     crontab /root/hello-cron
 CMD crond -f
+
+# build
+# docker buld -t imageName --build-arg PASSWORD=password .
+
+# run
+# docker run -d --name containerName --restart always imageName

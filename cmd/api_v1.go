@@ -19,7 +19,6 @@ func (j *Jue) GetV1Data() (string, error) {
 	p := string(u) + jueV1Path
 	after := ""
 	for haveMore {
-		time.Sleep(2 * time.Microsecond)
 		haveMore = false
 		r := &JueReq{}
 		r.Variables.Size = 2
@@ -53,7 +52,7 @@ func (j *Jue) GetV1Data() (string, error) {
 				s += fmt.Sprintf("<h2>%s %s</h2><br />", vv.Content, vv.Url)
 				after = JueV1Results.Data.RecommendedActivityFeed.Items.PageInfo.EndCursor
 				haveMore = true
-				time.Sleep(time.Millisecond)
+				time.Sleep(time.Second)
 			}
 		}
 	}
