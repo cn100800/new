@@ -51,7 +51,6 @@ func (j *Jue) GetV1Data() (string, error) {
 			fmt.Println(err)
 			return s, err
 		}
-		cursor = JueV1Results.Cursor
 		for _, v := range JueV1Results.Data {
 			day, err := time.ParseInLocation("2006-01-02", time.Now().In(t).Format("2006-01-02"), t)
 			if err != nil {
@@ -65,9 +64,9 @@ func (j *Jue) GetV1Data() (string, error) {
 			for _, vv := range v.MsgInfo.Pic {
 				s += fmt.Sprintf("<a href='%s'><img src='%s' width='600' height='auto'/></a>", vv, vv)
 			}
-			log.Println(v.MsgInfo.Content)
 			s += fmt.Sprintf("<h2>%s %s</h2><br />", v.MsgInfo.Content, v.MsgInfo.Msgid)
 			haveMore = true
+			cursor = JueV1Results.Cursor
 		}
 		time.Sleep(time.Second)
 		// for _, v := range JueV1Results.Data.Result {
