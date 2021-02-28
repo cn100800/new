@@ -17,6 +17,6 @@ var (
 )
 
 var (
-	jueV1Url  = "aHR0cHM6Ly9hcGluZXcuanVlamluLmltLw=="
+	jueV1Url  = "aHR0cHM6Ly9hcGkuanVlamluLmNuLw=="
 	jueV1Path = "recommend_api/v1/short_msg/recommend"
 )

@@ -40,12 +40,17 @@ func (j *Jue) GetV1Data() (string, error) {
 		req.Header.Add("X-Agent", "Juejin/Web")
 		req.Header.Add("user-agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.79 Safari/537.36")
 		client := &http.Client{}
-		resp, _ := client.Do(req)
+		resp, err := client.Do(req)
+		if err != nil {
+			log.Printf("%v", err)
+			return "", nil
+		}
+		defer resp.Body.Close()
 		data, _ := ioutil.ReadAll(resp.Body)
 		if resp.StatusCode != http.StatusOK {
 			log.Printf("%d, %s", resp.StatusCode, resp.Status)
 		}
-		//log.Println(string(data))
+
 		var JueV1Results JueV2Result
 		if err := json.Unmarshal(data, &JueV1Results); err != nil {
 			fmt.Println(err)
