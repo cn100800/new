@@ -83,8 +83,7 @@ func Exec() {
 		close(r1)
 		close(r2)
 	}()
-	j.GetV1Data()
-	os.Exit(0)
+
 	go func() {
 		wg.Add(1)
 		defer wg.Done()
