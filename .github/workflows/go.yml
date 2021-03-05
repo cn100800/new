@@ -1,0 +1,25 @@
+name: Go
+
+on:
+  push:
+  schedule:
+    - cron: "57 15 * * *"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.16
+
+      - name: Build
+        run: go build
+
+      - name: Test
+        env:
+          G_TOKEN: ${{ secrets.G_TOKEN }}
+        run: /home/runner/work/news/news/news -o -u myqq2018@gmail.com -P $G_TOKEN -h smtp.gmail.com -f myqq2018@gmail.com -t myqq2018@gmail.com -p 587
