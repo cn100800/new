@@ -3,7 +3,7 @@ name: Go
 on:
   push:
   schedule:
-    - cron: "57 15 * * *"
+    - cron: "50 15 * * *"
 
 jobs:
   build:
@@ -25,11 +25,11 @@ jobs:
         run: |
           /home/runner/work/news/news/news
           git clone https://github.com/freecracy/daily.git /home/runner/work/news/daily
-          mkdir -p /home/runner/work/news/daily/docs/`date +%Y-%Y-%m`
-          mv `date +%Y-%m-%d-news.md` /home/runner/work/news/daily/docs/`date +%Y-%Y-%m`
+          mkdir -p /home/runner/work/news/daily/docs/`TZ=UTC-8 date +%Y-%Y-%m`
+          mv `TZ=UTC-8 date +%Y-%m-%d-news.md` /home/runner/work/news/daily/docs/`TZ=UTC-8 date +%Y-%Y-%m`
           cd /home/runner/work/news/daily
           git config user.name freecracy
           git config user.email 12114073+freecracy@users.noreply.github.com
           git add .
-          git commit -m `date +%Y-%m-%d`
+          git commit -m `TZ=UTC-8 date +%Y-%m-%d`
           git push https://${G_TOKEN}@github.com/freecracy/daily.git main:main
