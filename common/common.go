@@ -3,6 +3,7 @@ package common
 import (
 	"flag"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/smtp"
 	"os"
@@ -53,7 +54,7 @@ func parse() *mailServer {
 		*from == "" ||
 		*to == "" {
 		flag.PrintDefaults()
-		os.Exit(0)
+		//os.Exit(0)
 	}
 	return &mailServer{
 		host:     *host,
@@ -102,8 +103,12 @@ func Exec() {
 	Hdata = <-r1
 	Jdata = <-r2
 	//content := wd + "<hr />" + Hdata + "<hr />" + Jdata
-
-	content := Hdata + "<hr />" + Jdata
+	local, _ := time.LoadLocation("Asia/Shanghai")
+	filename := fmt.Sprintf("%s", time.Now().In(local).Format("2006-01-02-news"))
+	title := fmt.Sprintf("%s news", time.Now().In(local).Format("2006年01月02日"))
+	content := "# " + title + "\n" + Hdata + "<hr />" + Jdata
+	ioutil.WriteFile(filename+".md", []byte(content), 0644)
+	os.Exit(0)
 	//发送邮件
 	auth := smtp.PlainAuth("cn", m.username, m.password, m.host)
 
@@ -111,7 +116,7 @@ func Exec() {
 	// and send the email all in one step.
 	to := []string{m.to}
 	mime := "MIME-version: 1.0;\nContent-Type: text/html; charset=\"UTF-8\";\n\n"
-	local, _ := time.LoadLocation("Asia/Shanghai")
+	//local, _ := time.LoadLocation("Asia/Shanghai")
 	subject := fmt.Sprintf("Subject:%s\n", time.Now().In(local).Format(time.RFC850))
 	msg := []byte(subject + mime + content)
 	if err := smtp.SendMail(m.host+":"+strconv.Itoa(m.port), auth, m.from, to, msg); err != nil {
