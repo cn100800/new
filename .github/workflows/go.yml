@@ -3,7 +3,7 @@ name: Go
 on:
   push:
   schedule:
-    - cron: "40 15 * * *"
+    - cron: "00 15 * * *"
 
 jobs:
   build:

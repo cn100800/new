@@ -14,13 +14,18 @@ import (
 
 const (
 	HOME_FORMAT = `
-<h1>
-    <a href='%s'>%s</a>
-</h1>
-<h2>
-    %s
-</h2>
-<br />
+	<h1>
+	    <a href='%s'>%s</a>
+	</h1>
+	<h2>
+	    %s
+	</h2>
+	<br />
+	`
+	// HomeFormat ...
+	HomeFormat string = `
+   [%s](%s)
+   > %s
 `
 )
 
@@ -96,7 +101,7 @@ func (h *Home) GetData() (z string, err error) {
 		panic(err)
 	}
 	for _, v := range info.Result {
-		z += fmt.Sprintf(HOME_FORMAT, v.WapNewsUrl, v.Title, v.Description)
+		z += fmt.Sprintf(HomeFormat, v.Title, v.WapNewsUrl, v.Description)
 	}
 	return z, err
 }
@@ -160,10 +165,11 @@ func (h *Home) GetOneData(open bool) (string, error) {
 				}
 			}
 			t = strconv.FormatInt(now.Unix(), 10) + "000"
-			if !open {
-				v.WapNewsUrl = ""
-			}
-			z += fmt.Sprintf(HOME_FORMAT, v.WapNewsUrl, v.Title, v.Description)
+			// if !open {
+			// 	v.WapNewsUrl = ""
+			// }
+			// z += fmt.Sprintf(HOME_FORMAT, v.WapNewsUrl, v.Title, v.Description)
+			z += fmt.Sprintf(HomeFormat, v.Title, v.WapNewsUrl, v.Description)
 			haveMore = true
 			time.Sleep(time.Second)
 		}

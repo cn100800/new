@@ -1,6 +1,6 @@
 # 简介
 
-![ci](https://github.com/freecracy/news/workflows/Docker%20Image%20CI/badge.svg)
+![ci](https://github.com/freecracy/news/workflows/Go/badge.svg)
 
 ## install
 
