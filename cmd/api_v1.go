@@ -70,7 +70,7 @@ func (j *Jue) GetV1Data() (string, error) {
 			// 	s += fmt.Sprintf("<a href='%s'><img src='%s' width='600' height='auto'/></a>", vv, vv)
 			// }
 			for _, vv := range v.MsgInfo.Pic {
-				s += fmt.Sprintf("<a href='%s'><img src='%s' width='600px' height='600px'/></a>", vv, vv)
+				s += fmt.Sprintf("<a href='%s'><img src='%s' style='max-width:100%;'/></a>", vv, vv)
 			}
 			s += fmt.Sprintf("<h2>%s %s</h2><br />", v.MsgInfo.Content, v.MsgInfo.Msgid)
 			haveMore = true
